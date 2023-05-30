@@ -1,19 +1,32 @@
-# This is a sample Python script.
+class Color():
+    def __init__(self, int_rep=None, char_rep=None, str_rep=None):
+        chars = ['c', 'd', 'h', 's']
+        strs = ['Clubs', 'Diamonds', 'Hearts', 'Spades']
+        if int_rep!=None:
+            self.int_rep = int_rep
+            self.char_rep = chars[int_rep]
+            self.str_rep = strs[int_rep]
+        elif char_rep!=None:
+            self.int_rep = chars.index(char_rep)
+            self.char_rep = char_rep
+            self.str_rep = strs[self.int_rep]
+        elif str_rep!=None:
+            self.int_rep = strs.index(str_rep)
+            self.char_rep = chars[self.int_rep]
+            self.str_rep = str_rep
+        else:
+            raise TypeError('Color() missing an argument')
+    def __str__(self):
+        return(self.str_rep)
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
-def foo():
-    pass
+class Card():
+    def __init__(self, color, value):
+        """
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-    print("hi")
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-# This is a cool project
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        :param color: str, int or char
+        :param value: int
+            values from 2 to 14, 2-10 = 2-10, 11 = Jack, 12 = Queen, 13 = King, 14 = Ace
+        """
+        self.color = Color(char_rep=color)
+        self.value = value
