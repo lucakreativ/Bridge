@@ -69,13 +69,15 @@ class Deck:
     def shuffle(self):
         rd.shuffle(self.cards)
 
-    def deal(self, n, o, s, w):
+    def deal(self, n, o, s, w, shuffle=True):
+        if shuffle: self.shuffle()
         n.cards = self.cards[0:13]
         o.cards = self.cards[13:26]
         s.cards = self.cards[26:39]
         w.cards = self.cards[39:52]
 
+
 class Player:
-    def __init__(self, name, position = 'N'):
+    def __init__(self, name, position='N'):
         self.name = name
         self.position = position
