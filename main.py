@@ -21,7 +21,7 @@ class Color:
             raise TypeError('Color() missing an argument')
 
     def __str__(self):
-        return self.str_rep
+        return self.char_rep
 
 
 class Value:
@@ -44,7 +44,7 @@ class Value:
             raise TypeError('Value missing an argument')
 
     def __str__(self):
-        return self.str_rep
+        return self.char_rep
 
 
 class Card:
@@ -54,7 +54,7 @@ class Card:
         self.val = Value(value)
 
     def __str__(self):
-        return self.col.__str__() + ' ' + self.val.__str__()
+        return self.col.__str__() + '' + self.val.__str__()
 
 
 class Deck:
@@ -69,15 +69,28 @@ class Deck:
     def shuffle(self):
         rd.shuffle(self.cards)
 
-    def deal(self, n, o, s, w, shuffle=True):
+    def deal(self, player, shuffle=True):
         if shuffle: self.shuffle()
-        n.cards = self.cards[0:13]
-        o.cards = self.cards[13:26]
-        s.cards = self.cards[26:39]
-        w.cards = self.cards[39:52]
+        player[0].cards = self.cards[0:13]
+        player[1].cards = self.cards[13:26]
+        player[2].cards = self.cards[26:39]
+        player[3].cards = self.cards[39:52]
 
 
 class Player:
-    def __init__(self, name, position='N'):
+    def __init__(self, name=None, pos='n'):
         self.name = name
-        self.position = position
+        self.pos = pos
+
+    def play(self):
+        return self.cards.pop(rd.randint(0, len(self.cards)-1))
+
+
+def game(player):
+    deck = Deck()
+    deck.deal(player)
+    current_player = 0
+    for i in range(13):
+        for j in range(i, i + 4):
+            print(player[i % 4].play())
+
